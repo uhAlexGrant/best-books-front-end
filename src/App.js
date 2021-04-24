@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 import {withAuth0} from '@auth0/auth0-react'
 import MyFavoriteBooks from './MyFavoriteBooks';
-//import Login from './Login';
+import Login from './Login';
 
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
           <IsLoadingAndError>
             <Header />
             <Switch>
-              <Route exact path="/">
+              <Route exact path="/">{isAuthenticated ? '': <Login />}
                 
               </Route>
               <Route exact path="/profile">
