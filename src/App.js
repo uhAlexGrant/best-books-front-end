@@ -2,8 +2,8 @@ import React from 'react';
 import Header from './Header';
 import IsLoadingAndError from './IsLoadingAndError';
 import Footer from './Footer';
-import LoginButton from './LoginButton.js';
-import LogoutButton from './LogoutButton.js';
+//import LoginButton from './LoginButton.js';
+//import LogoutButton from './LogoutButton.js';
 import './App.css'
 import {
   BrowserRouter as Router,
@@ -12,14 +12,14 @@ import {
 } from "react-router-dom";
 import {withAuth0} from '@auth0/auth0-react'
 import MyFavoriteBooks from './MyFavoriteBooks';
-import Login from './Login';
+//import Login from './Login';
 
 
 class App extends React.Component {
 
   render() {
     console.log('app', this.props);
-    const {user, isAuthenticated} = this.props.auth0;
+    const { isAuthenticated} = this.props.auth0;
     //console.log(user);
     return(
       <>

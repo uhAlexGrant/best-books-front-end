@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import './Header.css';
 import LogoutButton from './LogoutButton'
 import {withAuth0} from '@auth0/auth0-react'
-import Login from './Login.js'
+//import Login from './Login.js'
 
 class Header extends React.Component {
   render() {
