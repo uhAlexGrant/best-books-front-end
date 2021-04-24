@@ -1,3 +1,15 @@
 .jumbotron{
   margin-bottom: 0;
+  background-color: burlywood;
+}
+
+.userInfo{
+  background-color: crimson;
+}
+h1{
+  background-color: crimson;
+}
+
+p{
+  background-color: crimson;
 }
