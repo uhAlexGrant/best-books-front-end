@@ -36,7 +36,7 @@ class App extends React.Component {
               ''}
               </Route>
             </Switch>
-            <Footer />
+            <Footer id='footer' />
           </IsLoadingAndError>
         </Router>
       </>
