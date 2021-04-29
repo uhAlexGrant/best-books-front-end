@@ -13,9 +13,20 @@ import {
 import {withAuth0} from '@auth0/auth0-react'
 import MyFavoriteBooks from './MyFavoriteBooks';
 import Login from './Login';
+import BestBooks from './BestBooks';
 
 
 class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state ={
+      userName: '',
+      favoriteBooks: [],
+      userEmail: '',
+    }
+  }
 
   render() {
     console.log('app', this.props);
@@ -34,6 +45,7 @@ class App extends React.Component {
               {isAuthenticated ?
               <MyFavoriteBooks /> :
               ''}
+              <BestBooks />
               </Route>
             </Switch>
             <Footer id='footer' />
