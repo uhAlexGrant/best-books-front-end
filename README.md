@@ -19,3 +19,13 @@ Apr - lab 12 in progress
 
 ## Credit and Collaborations
 Thank you TA's for the help.
+Name of feature:
+Get both ends talking
+
+Estimate of time needed to complete: 0.5 Hours
+
+Start time: 730pm
+
+Finish time: Ongoing
+
+Actual time needed to complete: A real long time.
