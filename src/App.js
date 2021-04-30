@@ -38,14 +38,13 @@ class App extends React.Component {
           <IsLoadingAndError>
             <Header />
             <Switch>
-              <Route exact path="/">{isAuthenticated ? '': <Login />}
+              <Route exact path="/">{isAuthenticated ? <BestBooks />: <Login />}
                 
               </Route>
               <Route exact path="/profile">
               {isAuthenticated ?
               <MyFavoriteBooks /> :
               ''}
-              <BestBooks />
               </Route>
             </Switch>
             <Footer id='footer' />
