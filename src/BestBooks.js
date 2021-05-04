@@ -30,12 +30,15 @@ class BestBooks extends React.Component {
 
   handleCreateBook = (e) => {
     e.preventDefault();
+    const bookName = e.target.bookName.value;
+    const description = e.target.description.value;
+    console.log(bookName, description)
     this.setState( {
-     description: this.state.description,
-     name: this.state.name,
+     description: description,
+     name: bookName,
    })
     const { user } = this.props.auth0;
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/book?user=${user.email}`
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/book?user=${user.email}`,{bookName, description}
      )
     .then(response => console.log(response.data));
   }
@@ -59,10 +62,10 @@ class BestBooks extends React.Component {
 
         <form onSubmit={this.handleCreateBook}>
           <label htmlFor="bookName">Name</label>
-          <input id="bookName" type="text" onInput={this.saveBookName}></input>
+          <input id="bookName" name="bookName" type="text" ></input>
           <br />
           <label htmlFor="description">Description</label>
-          <input id ="description" type="text" onInput={this.saveBookDescription}></input>
+          <input id="description" name= "description" type="text" ></input>
           <br />
           <input type="submit" />
         </form>
