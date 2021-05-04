@@ -3,27 +3,42 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 //import { render } from '@testing-library/react';
+import BestBooks from './BestBooks.js'
 
 
   
 class BookFormModal extends React.Component {
 
+  
+  // closeModal = () => {
+  //   this.setState({
+  //     showModal: false,
+  //   })
+  // }
+
   render() {
     return(
       <Modal.Dialog>
-  <Modal.Header closeButton>
-    <Modal.Title>Modal title</Modal.Title>
-  </Modal.Header>
+        <Modal.Header>
+          <Modal.Title>Add Book</Modal.Title>
+        </Modal.Header>
 
-  <Modal.Body>
-    <p>Modal body text goes here.</p>
-  </Modal.Body>
+        <Modal.Body>
+        <form onSubmit={this.props.handleCreateBook}>
+          <label htmlFor="bookName">Name</label>
+          <input id="bookName" name="bookName" type="text" ></input>
+          <br />
+          <label htmlFor="description">Description</label>
+          <input id="description" name= "description" type="text" ></input>
+          <br />
+          <input type="submit" />
+        </form>
+        </Modal.Body>
 
-  <Modal.Footer>
-    <Button variant="secondary">Close</Button>
-    <Button variant="primary">Save changes</Button>
-  </Modal.Footer>
-</Modal.Dialog>
+        <Modal.Footer>
+          
+        </Modal.Footer>
+      </Modal.Dialog>
     );
   }
 }
