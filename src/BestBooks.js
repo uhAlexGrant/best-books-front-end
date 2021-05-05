@@ -57,6 +57,16 @@ class BestBooks extends React.Component {
     console.log(bookData);
   }
 
+  handleDelete = (id) => {
+    const { user } = this.props.auth0;
+    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/book/${id}?user=${user.email}`).then(responseData => {
+      console.log(responseData);
+      this.setState({
+        books: responseData.data,
+      })
+    })
+  }
+
   buttonHasBeenClicked = () => {
     this.setState({
       showModal: true,
@@ -80,7 +90,11 @@ class BestBooks extends React.Component {
       ''}
 
         <h1>books</h1>
-        {this.state.books && this.state.books.map(book => <h3 key={book._id}>{book.bookName}</h3>)}
+        
+        {this.state.books && this.state.books.map(book => <h3 key={book._id}>{book.bookName}
+        <button onClick={e => this.handleDelete(book._id)}>Delete</button></h3>
+        )}
+
       </div>
     
       //<div>
