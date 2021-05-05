@@ -3,6 +3,8 @@ import './App.css';
 import axios from 'axios';
 //import { getMaxListeners } from 'superagent';
 import { withAuth0 } from '@auth0/auth0-react';
+import BookFormModal from './BookFormModal.js';
+import Button from 'react-bootstrap/Button'
 
 
 
@@ -13,6 +15,7 @@ class BestBooks extends React.Component {
     this.state = {
       description: '',
       name: '',
+      showModal: false,
     };
   }
 
@@ -29,13 +32,16 @@ class BestBooks extends React.Component {
 
 
   handleCreateBook = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
+    const bookName = e.target.bookName.value;
+    const description = e.target.description.value;
+    console.log(bookName, description)
     this.setState( {
-     description: this.state.description,
-     name: this.state.name,
+     description: description,
+     name: bookName,
    })
     const { user } = this.props.auth0;
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/book?user=${user.email}`
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/book?user=${user.email}`,{bookName, description}
      )
     .then(response => console.log(response.data));
   }
@@ -50,26 +56,64 @@ class BestBooks extends React.Component {
     });
     console.log(bookData);
   }
+
+  handleDelete = (id) => {
+    const { user } = this.props.auth0;
+    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/book/${id}?user=${user.email}`).then(responseData => {
+      console.log(responseData);
+      this.setState({
+        books: responseData.data,
+      })
+    })
+  }
+
+  buttonHasBeenClicked = () => {
+    this.setState({
+      showModal: true,
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      showModal: false,
+    })
+  }
+
   render() {
 
     return (
       <div>
+      <Button variant="primary" onClick= {this.buttonHasBeenClicked}>Add Book</Button>
+      
+      {this.state.showModal ?
+      <BookFormModal closeModal={this.closeModal} handleCreateBook={this.handleCreateBook}/> :
+      ''}
+
+        <h1>books</h1>
+        
+        {this.state.books && this.state.books.map(book => <h3 key={book._id}>{book.bookName}
+        <button onClick={e => this.handleDelete(book._id)}>Delete</button></h3>
+        )}
+
+      </div>
+    
+      //<div>
 
 
 
-        <form onSubmit={this.handleCreateBook}>
+        /*{ <form onSubmit={this.handleCreateBook}>
           <label htmlFor="bookName">Name</label>
-          <input id="bookName" type="text" onInput={this.saveBookName}></input>
+          <input id="bookName" name="bookName" type="text" ></input>
           <br />
           <label htmlFor="description">Description</label>
-          <input id ="description" type="text" onInput={this.saveBookDescription}></input>
+          <input id="description" name= "description" type="text" ></input>
           <br />
           <input type="submit" />
         </form>
 
         <h1>books</h1>
         {this.state.books && this.state.books.map(book => <h3 key={book._id}>{book.bookName}</h3>)}
-      </div>
+      </div> }*/
     )
   }
 }
