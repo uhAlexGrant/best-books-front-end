@@ -16,6 +16,8 @@ class BestBooks extends React.Component {
       description: '',
       name: '',
       showModal: false,
+      updatingBook: {},
+      isUpdating: false
     };
   }
 
@@ -41,10 +43,25 @@ class BestBooks extends React.Component {
      name: bookName,
    })
     const { user } = this.props.auth0;
+
+    if(this.state.isUpdating){
+      axios.put(`${process.env.REACT_APP_BACKEND_URL}/book/${this.state.updatingBook}`,
+      {
+        description: this.state.description,
+        name: this.state.name
+      }).then( response => {
+        console.log(response.data);
+        this.setState({
+          books: response.data
+        })
+      });
+    }else{
+
+    
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/book?user=${user.email}`,{bookName, description}
      )
     .then(response => console.log(response.data));
-  }
+  }}
 
   componentDidMount = async () => {
     const { user } = this.props.auth0;
@@ -55,6 +72,17 @@ class BestBooks extends React.Component {
       books: bookData.data.favoriteBooks,
     });
     console.log(bookData);
+  }
+
+  handleUpdate = (id) => {
+    console.log('updating progress', id);
+    let bookToUpdate = this.state.books.find(book => book._id === id);
+    this.setState({
+      name: bookToUpdate.name,
+      description: bookToUpdate.description,
+      updatingBook: id,
+      isUpdating: true
+    })
   }
 
   handleDelete = (id) => {
@@ -92,7 +120,9 @@ class BestBooks extends React.Component {
         <h1>books</h1>
         
         {this.state.books && this.state.books.map(book => <h3 key={book._id}>{book.bookName}
-        <button onClick={e => this.handleDelete(book._id)}>Delete</button></h3>
+        <button onClick={e => this.handleDelete(book._id)}>Delete</button>
+        <button onClick={e => this.handleUpdate(book._id)}>Update</button>
+        </h3>
         )}
 
       </div>

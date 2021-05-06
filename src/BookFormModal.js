@@ -26,10 +26,10 @@ class BookFormModal extends React.Component {
         <Modal.Body>
         <form onSubmit={this.props.handleCreateBook}>
           <label htmlFor="bookName">Name</label>
-          <input id="bookName" name="bookName" type="text" ></input>
+          <input id="bookName" name="bookName" type="text" onInput={this.props.saveBookName}></input>
           <br />
           <label htmlFor="description">Description</label>
-          <input id="description" name= "description" type="text" ></input>
+          <input id="description" name= "description" onInput={this.props.saveBookDescription} ></input>
           <br />
           <input type="submit" />
         </form>
